@@ -70,6 +70,34 @@ exec "!firefox %.html &"
 endif
 endfunc
 
+map <F6> :call CompileNRunGcc()<CR>
+func! CompileNRunGcc()
+exec "w"
+if &filetype == 'c'
+exec "!gcc % -o %<"
+exec "!%<"
+elseif &filetype == 'cpp'
+exec "!g++ % -o %<"
+exec "!%<"
+elseif &filetype == 'java'
+exec "!javac %"
+exec "!java -cp %:p:h %:t:r"
+elseif &filetype == 'sh'
+exec "!bash %"
+elseif &filetype == 'python'
+exec "!python %"
+elseif &filetype == 'html'
+exec "!firefox % &"
+elseif &filetype == 'go'
+exec "!go build %<"
+exec "!go run %"
+elseif &filetype == 'mkd'
+exec "!~/.vim/markdown.pl % > %.html &"
+exec "!firefox %.html &"
+endif
+endfunc
+
+
 imap <C-BS> <C-W>
 
 nnoremap <leader>n :NERDTreeFocus<CR>
